@@ -1,5 +1,5 @@
 import create from "zustand";
-import { devtools, presist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 const courseStore = (set) => ({
   courses: [],
@@ -16,8 +16,7 @@ const courseStore = (set) => ({
   toggleCourseStatus: (courseId) => {
     set((state) => ({
       courses: state.courses.map((course) =>
-        // eslint-disable-next-line no-undef
-        course.id === completed
+        course.id === courseId
           ? { ...course, completed: !course.completed }
           : course
       ),
@@ -25,6 +24,6 @@ const courseStore = (set) => ({
   },
 });
 const useCourseStore = create(
-  devtools(presist(courseStore, { name: "courses" }))
+  devtools(persist(courseStore, { name: "courses" }))
 );
 export default useCourseStore;
